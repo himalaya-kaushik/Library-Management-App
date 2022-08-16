@@ -1,0 +1,42 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+@*@model Tuple<LMSApp.Models.Account,List<LMSApp.Models.Book>>
+*@
+@model IEnumerable<LMSApp.Models.Book>
+@{
+    Layout = "~/Views/User/_Layout.cshtml";
+}
+
+<div class="container mt-4">
+    <form style="margin-left:30%">
+    <input type="text" name="searchstring" placeholder="Search..."/>
+    <input type="submit"/>
+</form>
+<br />
+<br />
+    <div class="row">
+
+        @foreach(var item in Model)
+        {   
+            <div class="col-auto mb-3">
+                <div class="card" style="width: 18rem; border-radius: 3rem;
+                 box-shadow: 0.8rem 0.8rem 1.4rem #c8d0e7, -0.2rem -0.2rem 1.8rem #ffffff; margin-left:5%;">
+                <img class="card-img-top" height="250" src="@item.ImageUri" alt="Card image cap">
+                    <div class="card-body" >
+                    <h5 class="card-title">@item.BookTitle</h5>
+                    <p class="card-text">No. of copies available: @item.NoOfCopies</p>
+                    <p class="card-text">Author: @item.Author.AuthorName</p>
+                    <p class="card-text">Publisher: @item.Publisher.PublisherName</p>
+                    <p class="card-text">Category: @item.Category</p>
+                     <form asp-controller="LendRequests" asp-action="bheekh" asp-route-bookId=@item.BookId>
+                         <input type="submit" value="Request to Borrow"/>
+                    </form>
+                </div>
+            </div>
+        </div>        
+        }
+    </div>
+</div>
